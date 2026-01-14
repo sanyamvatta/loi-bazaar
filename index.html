@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOI Bazaar | Premium Real Estate Assets</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="background-overlay"></div>
+
+    <main class="app-container">
+        
+<header class="app-header">
+            <div class="logo">LOI <span class="gold-text">BAZAAR</span></div>
+            <p class="brand-sub">by Sri Ambe Realtors</p>
+            
+            <p class="tagline">The Premier Marketplace for Government LOIs</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="card glass-effect">
+            
+            <div class="form-step active" id="step1">
+                <h2 class="step-title">What is your objective?</h2>
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectOption('intent', 'Buy', this)">
+                        <i class="fa-solid fa-file-import"></i>
+                        <span>Buy LOI</span>
+                    </div>
+                    <div class="option-card" onclick="selectOption('intent', 'Sell', this)">
+                        <i class="fa-solid fa-file-export"></i>
+                        <span>Sell LOI</span>
+                    </div>
+                </div>
+            </div>
+
+<div class="form-step" id="step2">
+    <h2 class="step-title">Select Location</h2>
+    <div class="options-list">
+        
+            <div class="option-row" onclick="selectLocation('Aerotropolis', true, this)">
+                <div class="row-content">
+                    <i class="fa-solid fa-plane-departure"></i>
+                    <span>Aerotropolis</span>
+                </div>
+                <i class="fa-solid fa-chevron-right action-icon"></i>
+            </div>
+
+            <div class="option-row" onclick="selectLocation('Sector 90', false, this)">
+                <div class="row-content">
+                    <i class="fa-solid fa-map-pin"></i>
+                    <span>Sector 90</span>
+                </div>
+                <i class="fa-solid fa-check action-icon"></i>
+            </div>
+
+            <div class="option-row" onclick="selectLocation('Eco City 3', false, this)">
+                <div class="row-content">
+                    <i class="fa-solid fa-leaf"></i>
+                    <span>Eco City 3</span>
+                </div>
+                <i class="fa-solid fa-check action-icon"></i>
+            </div>
+
+        </div>
+    </div>
+
+            <div class="form-step" id="step2-sub">
+                <h2 class="step-title">Select Block</h2>
+                <div class="options-grid compact">
+                    <div class="option-card" onclick="selectOption('block', 'Block A', this)"><span>Block A</span></div>
+                    <div class="option-card" onclick="selectOption('block', 'Block B', this)"><span>Block B</span></div>
+                    <div class="option-card" onclick="selectOption('block', 'Block C', this)"><span>Block C</span></div>
+                    <div class="option-card" onclick="selectOption('block', 'Block D', this)"><span>Block D</span></div>
+                </div>
+            </div>
+
+            <div class="form-step" id="step3">
+                <h2 class="step-title">Property Type</h2>
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectType('Residential', this)">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <span>Residential</span>
+                    </div>
+                    <div class="option-card" onclick="selectType('Commercial', this)">
+                        <i class="fa-solid fa-store"></i>
+                        <span>Commercial</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step" id="step4">
+                <h2 class="step-title">Select Size</h2>
+                <div class="options-list" id="sizeOptionsContainer">
+                    </div>
+            </div>
+
+            <div class="form-step" id="step5">
+                <h2 class="step-title">Confirm Details</h2>
+                <div class="summary-box">
+                    <p><span class="label">Intent:</span> <span id="summaryIntent" class="value">...</span></p>
+                    <p><span class="label">Location:</span> <span id="summaryLocation" class="value">...</span></p>
+                    <p><span class="label">Type:</span> <span id="summaryType" class="value">...</span></p>
+                    <p><span class="label">Size:</span> <span id="summarySize" class="value">...</span></p>
+                </div>
+                <button class="cta-button" onclick="submitForm()">
+                    <i class="fa-brands fa-whatsapp"></i> Connect on WhatsApp
+                </button>
+            </div>
+
+            <div class="nav-controls" id="navControls">
+                <button class="nav-btn secondary" id="prevBtn" onclick="prevStep()">Back</button>
+                <button class="nav-btn primary" id="nextBtn" onclick="nextStep()" disabled>Next</button>
+            </div>
+
+            <div class="success-screen" id="successScreen">
+                <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                <h2>Inquiry Sent</h2>
+                <p>Thank you for choosing LOI Bazaar. Our executive team will review your request and contact you shortly.</p>
+                <button class="nav-btn secondary" onclick="resetForm()">Submit Another</button>
+            </div>
+
+        </div>
+        
+        <footer class="app-footer">
+            &copy; 2025 LOI Bazaar. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

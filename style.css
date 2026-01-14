@@ -1,0 +1,422 @@
+:root {
+    /* YOUR BRAND COLORS */
+    --primary: #0F172A;       /* Deep Navy - Background */
+    --secondary: #1E293B;     /* Lighter Navy - Cards */
+    --gold: #D4AF37;          /* Luxury Gold - Accents/Primary Buttons */
+    --gold-light: #F3E5AB;    /* Light Gold - Gradients/Hover */
+    --text-light: #F8FAFC;    /* White/Off-White - Main Text */
+    --text-dark: #334155;     /* Dark Grey - Secondary Text (used sparingly) */
+    --white: #ffffff;
+    --nav-height: 80px;
+
+    /* Functional Colors */
+    --success-green: #27ae60;
+    --border-color: rgba(248, 250, 252, 0.1); /* Subtle white border for dark mode */
+    --card-bg-glass: rgba(30, 41, 59, 0.75); /* Lighter Navy with transparency */
+    
+    /* Spacing & Radius */
+    --radius-lg: 16px;
+    --radius-sm: 8px;
+    
+    /* Animation Speeds */
+    --trans-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--primary); /* Deep Navy */
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Abstract Art - Gold Glows on Navy */
+.background-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Subtle gold ambient light spots */
+    background: 
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.08) 0%, transparent 45%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    /* Center vertical alignment compensation */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--white);
+}
+
+.gold-text {
+    /* Gradient Text using your Gold and Gold Light */
+    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 2px 10px rgba(212, 175, 55, 0.2);
+}
+
+.tagline {
+    font-size: 0.85rem;
+    color: #94a3b8; /* Slate-400 equivalent for subtext */
+    letter-spacing: 1px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 20%;
+    /* Gold Gradient */
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* Card Styling (Navy Glassmorphism) */
+.card {
+    background: var(--card-bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 35px 25px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
+    min-height: 420px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+.step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--white);
+}
+
+/* Grid & Layouts */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.options-grid.compact {
+    grid-template-columns: 1fr 1fr;
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Interactive Elements */
+.option-card, .option-row {
+    background: rgba(15, 23, 42, 0.4); /* Darker Navy tint */
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    cursor: pointer;
+    transition: all var(--trans-speed) ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.option-row {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 20px;
+}
+
+.option-card i {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    color: #94a3b8; /* Muted Blue-Grey */
+    transition: color var(--trans-speed);
+}
+
+.option-card span, .option-row span {
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+}
+
+/* Hover & Active States */
+.option-card:hover, .option-row:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.option-card.selected, .option-row.selected {
+    background: rgba(212, 175, 55, 0.15); /* Gold Tint */
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.option-card.selected i {
+    color: var(--gold);
+}
+
+.option-card.selected span, .option-row.selected span {
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* Navigation Buttons */
+/* Navigation Buttons - UPDATED */
+.nav-controls {
+    margin-top: auto;
+    padding-top: 30px;
+    display: flex;
+    justify-content: flex-start; /* Aligns Back button to the left */
+}
+
+/* Updated High-Visibility Back Button */
+.nav-btn.secondary {
+    /* Visible Glass Style */
+    background: rgba(255, 255, 255, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.25); 
+    color: #ffffff; /* Bright White Text */
+    
+    /* Pill Shape & Size */
+    padding: 12px 30px;
+    border-radius: 50px;
+    
+    /* Font & Layout */
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between arrow and text */
+    transition: all 0.3s ease;
+}
+
+.nav-btn.secondary:hover {
+    background: rgba(212, 175, 55, 0.15); /* Gold tint */
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+    transform: translateX(-3px); /* Subtle slide animation */
+}
+
+/* Keep Primary styles for safety, though hidden */
+.nav-btn.primary {
+    background: linear-gradient(135deg, var(--gold), #b59223);
+    color: var(--primary);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    display: none; /* Ensuring Next is hidden here or via ID */
+}
+
+/* Form Steps Visibility */
+.form-step {
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* Review Summary */
+.summary-box {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    border-left: 3px solid var(--gold);
+    margin-bottom: 25px;
+}
+
+.summary-box p {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 8px;
+}
+
+.summary-box p:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.label { color: #94a3b8; font-size: 0.9rem; }
+.value { color: var(--gold); font-weight: 600; font-family: 'Playfair Display', serif; }
+
+.cta-button {
+    width: 100%;
+    padding: 16px;
+    background: #25D366; /* WhatsApp Green */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+}
+
+.cta-button:hover {
+    transform: scale(1.02);
+    background: #20bd5a;
+}
+
+/* Success Screen */
+.success-screen {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+    animation: scaleIn 0.5s ease;
+}
+
+.check-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--primary); /* Navy Checkmark */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 25px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.app-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Mobile Tweak */
+@media (max-width: 400px) {
+    .step-title { font-size: 1.4rem; }
+    .option-card { padding: 15px; }
+}
+
+/* --- NEW ADDITION FOR AUTO-FLOW --- */
+#nextBtn {
+    display: none !important; /* Force hide the Next button */
+}
+
+/* Align Back button to the left when Next is gone */
+.nav-controls {
+    justify-content: flex-start; 
+}
+
+/* --- UPDATED: Subtle Background Particles --- */
+.particles {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1; /* MOVED BEHIND EVERYTHING */
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); 
+    opacity: 0; 
+    filter: blur(2px); /* Increased blur for softness */
+    animation: floatLuxury linear infinite;
+}
+
+@keyframes floatLuxury {
+    0% {
+        transform: translateY(110vh) translateX(0) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.4; /* Reduced opacity (was 0.8) - Less distracting */
+    }
+    50% {
+        opacity: 0.2;
+        transform: translateY(50vh) translateX(20px) scale(1); 
+    }
+    80% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(-20px) scale(0.5); 
+        opacity: 0;
+    }
+}
+.brand-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    color: var(--gold); /* Gold color */
+    letter-spacing: 3px; /* Wide spacing for luxury feel */
+    text-transform: uppercase;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    opacity: 0.9;
+}
