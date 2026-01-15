@@ -204,7 +204,7 @@ function submitForm() {
     let locationFull = currentState.location;
     if(currentState.hasSubLocation) locationFull += ` (${currentState.block})`;
 
-    const message = `Hello LOI Bazaar,\nHappy : 9855071280\nSri Ambe Realtors\n%0a%0aI am looking to *${currentState.intent.toUpperCase()}* an LOI.%0a%0a📍 *Location:* ${locationFull}%0a🏠 *Type:* ${currentState.type}%0a📏 *Size:* ${currentState.size}%0a%0aPlease contact me at the earliest.`;
+    const message = `Hello LOI Bazaar,%0a%0aHappy : 9855071280%0a%0aSri Ambe Realtors%0a%0aI am looking to *${currentState.intent.toUpperCase()}* an LOI.%0a%0a📍 *Location:* ${locationFull}%0a🏠 *Type:* ${currentState.type}%0a📏 *Size:* ${currentState.size}%0a%0aPlease contact me at the earliest.`;
 
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
 
@@ -259,3 +259,4 @@ function createParticles() {
     }
 
 }
+
