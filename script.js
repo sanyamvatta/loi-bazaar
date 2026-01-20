@@ -95,16 +95,27 @@ function renderSizes() {
     container.innerHTML = ''; // Clear previous
 
     let sizes = [];
+
+    // Switch Logic for different Property Types
     if (currentState.type === 'Residential') {
         sizes = ['100 Gaj', '150 Gaj', '200 Gaj', '300 Gaj', '500 Gaj'];
-    } else {
+    } 
+    else if (currentState.type === 'Commercial') {
         sizes = ['25 Gaj Booth', '60 Gaj Bay Shop', '100 Gaj Showroom', '200 Gaj Showroom'];
     }
+    // --- NEW TYPES FOR SECTOR 101 DHURALI ---
+    else if (currentState.type === 'Industrial Plots') {
+        sizes = ['275 Gaj', '550 Gaj'];
+    }
+    else if (currentState.type === 'Showrooms') {
+        sizes = ['60 Gaj Bay Shop', '100 Gaj Showroom', '200 Gaj Showroom'];
+    }
+    // ----------------------------------------
 
     sizes.forEach(size => {
         const div = document.createElement('div');
         div.className = 'option-row';
-        div.innerHTML = `<span>${size}</span> <i class="fa-regular fa-circle"></i>`;
+        div.innerHTML = `<div class="row-content"><span>${size}</span></div> <i class="fa-regular fa-circle action-icon"></i>`;
         
         // Add click listener
         div.onclick = function() {
@@ -113,10 +124,10 @@ function renderSizes() {
             // Visual toggle
             Array.from(container.children).forEach(c => {
                 c.classList.remove('selected');
-                c.querySelector('i').className = 'fa-regular fa-circle';
+                c.querySelector('.action-icon').className = 'fa-regular fa-circle action-icon';
             });
             this.classList.add('selected');
-            this.querySelector('i').className = 'fa-solid fa-dot-circle';
+            this.querySelector('.action-icon').className = 'fa-solid fa-dot-circle action-icon';
 
             // Auto Advance to Summary
             setTimeout(nextStep, AUTO_ADVANCE_DELAY);
@@ -161,23 +172,56 @@ function updateUI() {
     // Hide all steps
     document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
 
-    // Show current step
-    let activeStepId = steps[currentState.step];
+    // Logic: Skip Block Selection (Step 3) if not needed
+    let activeStepLogical = currentState.step;
     
-    // Safety fallback for skip logic
-    if(currentState.step === 3 && !currentState.hasSubLocation) {
-        currentState.step = 4; 
-        activeStepId = steps[4];
+    // If we are on Step 3 (Blocks) but the location doesn't have blocks, skip to 4
+    if(activeStepLogical === 3 && !currentState.hasSubLocation) {
+        currentState.step = 4;
+        activeStepLogical = 4;
     }
 
+    let activeStepId = steps[activeStepLogical];
     document.getElementById(activeStepId).classList.add('active');
+
+    // --- NEW: DYNAMIC PROPERTY TYPE LOGIC ---
+    // If we are on the Property Type Step (Step 4), check location and inject correct options
+    if (activeStepLogical === 4) {
+        const typeContainer = document.querySelector('#step3 .options-grid');
+        
+        if (currentState.location === 'Sector 101 Dhurali') {
+            // Render Dhurali Specific Options
+            typeContainer.innerHTML = `
+                <div class="option-card" onclick="selectType('Industrial Plots', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-industry"></i></div>
+                    <span>Industrial Plots</span>
+                </div>
+                <div class="option-card" onclick="selectType('Showrooms', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-shop"></i></div>
+                    <span>Showrooms</span>
+                </div>
+            `;
+        } else {
+            // Render Standard Options (Aerotropolis/Eco City)
+            typeContainer.innerHTML = `
+                <div class="option-card" onclick="selectType('Residential', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-house-chimney"></i></div>
+                    <span>Residential</span>
+                </div>
+                <div class="option-card" onclick="selectType('Commercial', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-city"></i></div>
+                    <span>Commercial</span>
+                </div>
+            `;
+        }
+    }
+    // ----------------------------------------
 
     // Update Progress Bar
     let progress = (currentState.step / 6) * 100;
     progressBar.style.width = `${progress}%`;
 
     // Button States
-    // Only show Back button if not on Step 1
     prevBtn.style.visibility = currentState.step === 1 ? 'hidden' : 'visible';
     
     // Special Case: Review Screen (Last Step)
@@ -259,6 +303,7 @@ function createParticles() {
     }
 
 }
+
 
 
 
