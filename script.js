@@ -96,22 +96,35 @@ function renderSizes() {
 
     let sizes = [];
 
-    // Switch Logic for different Property Types
-    if (currentState.type === 'Residential') {
+// Switch Logic for different Property Types AND Locations
+    if (currentState.location === 'Low Density' && currentState.type === 'Residential') {
+        // Specific sizes for Low Density
+        sizes = ['400 Gaj', '600 Gaj', '800 Gaj'];
+    }
+    else if (currentState.location === 'Eco City 3' && currentState.type === 'Residential') {
+        // Specific Residential sizes for Eco City 3 (Ready for your changes)
+        sizes = ['200 Gaj', '300 Gaj', '500 Gaj'];
+    }
+    else if (currentState.location === 'Eco City 3' && currentState.type === 'Commercial') {
+        // Specific Commercial sizes for Eco City 3 (Ready for your changes)
+        sizes = ['100 Gaj Showroom', '200 Gaj Showroom'];
+    }
+    else if (currentState.type === 'Residential') {
+        // Standard Residential Sizes
         sizes = ['100 Gaj', '150 Gaj', '200 Gaj', '300 Gaj', '500 Gaj'];
     } 
     else if (currentState.type === 'Commercial') {
+        // Standard Commercial Sizes
         sizes = ['25 Gaj Booth', '60 Gaj Bay Shop', '100 Gaj Showroom', '200 Gaj Showroom'];
     }
-    // --- NEW TYPES FOR SECTOR 101 DHURALI ---
     else if (currentState.type === 'Industrial Plots') {
+        // Sector 101 Dhurali sizes
         sizes = ['275 Gaj', '550 Gaj'];
     }
     else if (currentState.type === 'Showrooms') {
+        // Sector 101 Dhurali sizes
         sizes = ['60 Gaj Bay Shop', '100 Gaj Showroom', '200 Gaj Showroom'];
     }
-    // ----------------------------------------
-
     sizes.forEach(size => {
         const div = document.createElement('div');
         div.className = 'option-row';
@@ -168,6 +181,7 @@ function prevStep() {
 }
 
 /* Core UI Updater */
+/* Core UI Updater */
 function updateUI() {
     // Hide all steps
     document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
@@ -184,8 +198,7 @@ function updateUI() {
     let activeStepId = steps[activeStepLogical];
     document.getElementById(activeStepId).classList.add('active');
 
-    // --- NEW: DYNAMIC PROPERTY TYPE LOGIC ---
-    // If we are on the Property Type Step (Step 4), check location and inject correct options
+// --- NEW: DYNAMIC PROPERTY TYPE LOGIC ---
     if (activeStepLogical === 4) {
         const typeContainer = document.querySelector('#step3 .options-grid');
         
@@ -201,8 +214,28 @@ function updateUI() {
                     <span>Showrooms</span>
                 </div>
             `;
+        } else if (currentState.location === 'Low Density') {
+            // Render ONLY Residential for Low Density
+            typeContainer.innerHTML = `
+                <div class="option-card" onclick="selectType('Residential', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-house-chimney"></i></div>
+                    <span>Residential</span>
+                </div>
+            `;
+        } else if (currentState.location === 'Eco City 3') {
+            // Eco City 3 Options (Currently set to standard, ready for your changes)
+            typeContainer.innerHTML = `
+                <div class="option-card" onclick="selectType('Residential', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-house-chimney"></i></div>
+                    <span>Residential</span>
+                </div>
+                <div class="option-card" onclick="selectType('Commercial', this)">
+                    <div class="icon-circle"><i class="fa-solid fa-city"></i></div>
+                    <span>Commercial</span>
+                </div>
+            `;
         } else {
-            // Render Standard Options (Aerotropolis/Eco City)
+            // Render Standard Options (Aerotropolis, Sector 90)
             typeContainer.innerHTML = `
                 <div class="option-card" onclick="selectType('Residential', this)">
                     <div class="icon-circle"><i class="fa-solid fa-house-chimney"></i></div>
@@ -216,7 +249,6 @@ function updateUI() {
         }
     }
     // ----------------------------------------
-
     // Update Progress Bar
     let progress = (currentState.step / 6) * 100;
     progressBar.style.width = `${progress}%`;
@@ -248,7 +280,7 @@ function submitForm() {
     let locationFull = currentState.location;
     if(currentState.hasSubLocation) locationFull += ` (${currentState.block})`;
 
-    const message = `Hello LOI Bazaar,%0aHappy : 9855071280%0aSri Ambe Realtors%0a%0aI am looking to *${currentState.intent.toUpperCase()}* an LOI.%0a%0a📍 *Location:* ${locationFull}%0a🏠 *Type:* ${currentState.type}%0a📏 *Size:* ${currentState.size}%0a%0aPlease contact me at the earliest.`;
+    const message = `Hello LOI Bazaar,%0a%0aI am looking to *${currentState.intent.toUpperCase()}* an LOI.%0a%0a📍 *Location:* ${locationFull}%0a🏠 *Type:* ${currentState.type}%0a📏 *Size:* ${currentState.size}%0a%0aPlease contact me at the earliest.`;
 
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
 
@@ -301,9 +333,4 @@ function createParticles() {
         
         container.appendChild(p);
     }
-
 }
-
-
-
-
