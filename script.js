@@ -109,6 +109,10 @@ function renderSizes() {
         // Specific Commercial sizes for Eco City 3 (Ready for your changes)
         sizes = ['100 Gaj Showroom', '200 Gaj Showroom'];
     }
+    else if (currentState.location === 'Sector 90' && currentState.type === 'Commercial') {
+        // Specific Commercial sizes for Eco City 3 (Ready for your changes)
+        sizes = ['60 Gaj Bay shop', '121 Gaj Showroom'];
+    }
     else if (currentState.type === 'Residential') {
         // Standard Residential Sizes
         sizes = ['100 Gaj', '150 Gaj', '200 Gaj', '300 Gaj', '500 Gaj'];
