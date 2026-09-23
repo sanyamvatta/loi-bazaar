@@ -97,28 +97,25 @@ function renderSizes() {
     let sizes = [];
 
 // Switch Logic for different Property Types AND Locations
+// Switch Logic for different Property Types AND Locations
     if (currentState.location === 'Low Density' && currentState.type === 'Residential') {
         // Specific sizes for Low Density
         sizes = ['400 Gaj', '600 Gaj', '800 Gaj'];
     }
-    else if (currentState.location === 'Eco City 3' && currentState.type === 'Residential') {
-        // Specific Residential sizes for Eco City 3 (Ready for your changes)
+    else if ((currentState.location === 'Eco City 3' || (currentState.location === 'Aerotropolis' && currentState.block === 'Block E to J')) && currentState.type === 'Residential') {
+        // Shared Residential sizes for Eco City 3 and Aerotropolis (Block E to J only)
         sizes = ['200 Gaj', '300 Gaj', '500 Gaj'];
     }
-    else if (currentState.location === 'Eco City 3' && currentState.type === 'Commercial') {
-        // Specific Commercial sizes for Eco City 3 (Ready for your changes)
+    else if ((currentState.location === 'Eco City 3' || (currentState.location === 'Aerotropolis' && currentState.block === 'Block E to J')) && currentState.type === 'Commercial') {
+        // Shared Commercial sizes for Eco City 3 and Aerotropolis (Block E to J only)
         sizes = ['100 Gaj Showroom', '200 Gaj Showroom'];
     }
-    else if (currentState.location === 'Sector 90' && currentState.type === 'Commercial') {
-        // Specific Commercial sizes for Eco City 3 (Ready for your changes)
-        sizes = ['60 Gaj Bay shop', '121 Gaj Showroom'];
-    }
     else if (currentState.type === 'Residential') {
-        // Standard Residential Sizes
+        // Standard Residential Sizes (Applies to Sector 90 and Aerotropolis Block A-D)
         sizes = ['100 Gaj', '150 Gaj', '200 Gaj', '300 Gaj', '500 Gaj'];
     } 
     else if (currentState.type === 'Commercial') {
-        // Standard Commercial Sizes
+        // Standard Commercial Sizes (Applies to Sector 90 and Aerotropolis Block A-D)
         sizes = ['25 Gaj Booth', '60 Gaj Bay Shop', '100 Gaj Showroom', '200 Gaj Showroom'];
     }
     else if (currentState.type === 'Industrial Plots') {
